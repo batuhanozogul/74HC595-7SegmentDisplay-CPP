@@ -77,7 +77,7 @@ byte getCharacterByte(char Letter) {
   dict[24].key = '3';
   dict[24].data = 0b11110010;
   dict[25].key = '4';
-  dict[25].data = 0b01001110;
+  dict[25].data = 0b01100110;
   dict[26].key = '5';
   dict[26].data = 0b10110110;
   dict[27].key = '6';

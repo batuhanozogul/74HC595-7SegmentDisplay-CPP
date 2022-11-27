@@ -4,15 +4,22 @@
 int latchPin = PB0;
 int clockPin = PB1;
 int dataPin = PB2;
- 
+int resetPin = PB3;
 void setup() 
 {
   pinMode(latchPin, OUTPUT);
   pinMode(dataPin, OUTPUT);  
   pinMode(clockPin, OUTPUT);
+  pinMode(resetPin, OUTPUT);
+  digitalWrite(resetPin, HIGH);
+}
+void reset() {
+  digitalWrite(resetPin, LOW);
+  digitalWrite(resetPin, HIGH);
 }
 
 void Write(String Text) {
+  reset();
   digitalWrite(latchPin, LOW);
   byte Bytes[sizeof(Text)];
   int p = 0;

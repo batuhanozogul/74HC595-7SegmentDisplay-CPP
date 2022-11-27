@@ -16,10 +16,13 @@ void Write(String Text) {
   digitalWrite(latchPin, LOW);
   byte Bytes[sizeof(Text)];
   int p = 0;
+  bool second_dot = 0;
   for (char Char : Text) {
     byte _ = getCharacterByte(Char);
-    if (p>0&&Char=='.') {
+    if (Char!='.') {second_dot=0;}
+    if (p>0&&Char=='.'&&!second_dot) {
       bitSet(Bytes[p-1], 0);
+      second_dot=1;
     } else {
       Bytes[p] = getCharacterByte(Char);
       p++;

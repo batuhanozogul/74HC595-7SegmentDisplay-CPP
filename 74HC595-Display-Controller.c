@@ -14,8 +14,22 @@ void setup()
 
 void Write(String Text) {
   digitalWrite(latchPin, LOW);
+  byte Bytes[sizeof(Text)];
+  int p = 0;
+  bool second_dot = 0;
   for (char Char : Text) {
-   shiftOut(dataPin, clockPin, LSBFIRST, getCharacterByte(Char));
+    byte _ = getCharacterByte(Char);
+    if (Char!='.') {second_dot=0;}
+    if (p>0&&Char=='.'&&!second_dot) {
+      bitSet(Bytes[p-1], 0);
+      second_dot=1;
+    } else {
+      Bytes[p] = getCharacterByte(Char);
+      p++;
+    }
+  }
+  for (int i=0;i<p;i++) {
+  	shiftOut(dataPin, clockPin, LSBFIRST, Bytes[i]);
   }
   digitalWrite(latchPin, HIGH);
 }

@@ -12,10 +12,21 @@ void setup()
   pinMode(clockPin, OUTPUT);
 }
 
-void Write(String Text) {
+void Write(String Text, int INVERT) {
   digitalWrite(latchPin, LOW);
+  byte Bytes[sizeof(Text)];
+  int p = 0;
   for (char Char : Text) {
-   shiftOut(dataPin, clockPin, LSBFIRST, getCharacterByte(Char));
+    byte _ = getCharacterByte(Char);
+    if (p>0&&Char=='.') {
+      bitSet(Bytes[p-1], 0);
+    } else {
+      Bytes[p] = getCharacterByte(Char);
+      p++;
+    }
+  }
+  for (int i=0;i<p;i++) {
+  	shiftOut(dataPin, clockPin, LSBFIRST, Bytes[i]);
   }
   digitalWrite(latchPin, HIGH);
 }

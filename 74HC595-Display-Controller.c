@@ -12,7 +12,7 @@ void setup()
   pinMode(clockPin, OUTPUT);
 }
 
-void Write(String Text, int INVERT) {
+void Write(String Text) {
   digitalWrite(latchPin, LOW);
   byte Bytes[sizeof(Text)];
   int p = 0;
